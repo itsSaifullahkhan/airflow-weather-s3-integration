@@ -1,37 +1,30 @@
-# 🌦️ Weather ETL Pipeline with Apache Airflow, RDS & S3 on AWS
+# 🌦️ Weather ETL Pipeline using Apache Airflow, RDS & S3 on AWS
 
-This project implements a real-time ETL pipeline using **Apache Airflow**, hosted on an **EC2 instance**, to integrate and process weather data from the **OpenWeather API** and files from **Amazon S3**. The data is stored in **Amazon RDS (PostgreSQL)**, joined, and the final output is exported back to S3.
+## 📌 Project Overview
 
----
-
-## 📊 Architecture
-
-Below is the architecture of the pipeline:
-
-![Architecture](./Project%20Architecture.png)
-
----
-
-## ⚙️ How It Works
-
-1. **Apache Airflow (on EC2)** triggers the pipeline.
-2. Weather data is fetched from **OpenWeather API**, transformed via Python, and loaded into **RDS PostgreSQL**.
-3. Simultaneously, structured data (e.g., `.csv` or `.json`) is read from an **S3 bucket** and stored into another RDS table.
-4. Both tables are then **joined (INNER JOIN)** to enrich the dataset.
-5. The final joined data is exported back into a designated folder in the **S3 bucket**.
+This project demonstrates a real-time ETL pipeline built with **Apache Airflow**, hosted on an **AWS EC2 instance**, to automate data integration between the **OpenWeather API** and **Amazon S3**. It performs parallel processing, stores data in **Amazon RDS (PostgreSQL)**, and finally outputs the joined results back into S3 for further analytics or downstream consumption.
 
 ---
 
 ## 🧰 Tech Stack
 
-- **Apache Airflow** – DAG orchestration
-- **AWS EC2** – Host for Airflow
-- **AWS S3** – Source and final destination
-- **AWS RDS (PostgreSQL)** – Relational data store
-- **OpenWeather API** – Real-time weather source
-- **Python** – Transformation logic
+- **Apache Airflow** – Workflow orchestration
+- **AWS EC2** – Hosting Airflow
+- **AWS S3** – Data source and export target
+- **AWS RDS (PostgreSQL)** – Central data warehouse
+- **OpenWeatherMap API** – Real-time weather data
+- **Python** – Data transformation and scripting
 
 ---
 
-## 🗂️ Project Structure
+## ⚙️ What the Pipeline Does
+
+- Fetches weather data from OpenWeather API.
+- Reads structured data from a source S3 bucket (e.g., CSV/JSON).
+- Processes both data sources in **parallel**.
+- Loads each dataset into **separate tables in PostgreSQL** (on RDS).
+- Joins the two tables via SQL (INNER JOIN).
+- Exports the final enriched dataset back to S3.
+
+---
 
